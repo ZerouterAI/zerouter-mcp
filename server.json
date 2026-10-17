@@ -17,11 +17,10 @@
   "version": "0.1.0",
   "packages": [
     {
-      "registryType": "npm",
-      "registryBaseUrl": "https://registry.npmjs.org",
-      "identifier": "zerouter-mcp",
+      "registryType": "mcpb",
+      "identifier": "https://github.com/ZerouterAI/zerouter-mcp/releases/download/v0.1.0/zerouter-mcp-0.1.0.mcpb",
       "version": "0.1.0",
-      "runtimeHint": "npx",
+      "fileSha256": "32aefe7c4f0952dec80c31154dfde93231a5cff38114a6a2aa55699012d475ab",
       "transport": {
         "type": "stdio"
       },
