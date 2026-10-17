@@ -1,0 +1,21 @@
+# Smithery configuration: https://smithery.ai/docs
+# Local stdio server. Newer Smithery publishing uses the MCPB bundle (manifest.json, see PUBLISH.md);
+# this file is kept for Smithery's GitHub-based flow and other tools that read it.
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      zerouterApiKey:
+        type: string
+        title: Zerouter API key
+        description: "Your Zerouter key (sk-...) from https://www.zerouter.ai. Needed for chat and compare_models. get_pricing and list_models work without it."
+    required: []
+  commandFunction: |-
+    (config) => ({
+      command: 'node',
+      args: ['dist/index.js'],
+      env: config.zerouterApiKey ? { ZEROUTER_API_KEY: config.zerouterApiKey } : {}
+    })
+  exampleConfig:
+    zerouterApiKey: sk-xxxx

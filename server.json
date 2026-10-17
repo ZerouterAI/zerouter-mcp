@@ -1,0 +1,46 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.ZerouterAI/zerouter-mcp",
+  "title": "Zerouter",
+  "description": "AI API gateway MCP for Claude, GPT, Gemini, Grok and Kimi via Zerouter. One API key to chat, compare models, and look up API pricing.",
+  "websiteUrl": "https://www.zerouter.ai",
+  "repository": {
+    "url": "https://github.com/ZerouterAI/zerouter-mcp",
+    "source": "github"
+  },
+  "icons": [
+    {
+      "src": "https://www.zerouter.ai/icon.svg",
+      "mimeType": "image/svg+xml"
+    }
+  ],
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "zerouter-mcp",
+      "version": "0.1.0",
+      "runtimeHint": "npx",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "ZEROUTER_API_KEY",
+          "description": "Zerouter API key (sk-...) from https://www.zerouter.ai. Needed for chat and compare_models; get_pricing and list_models work without it.",
+          "isRequired": false,
+          "isSecret": true,
+          "format": "string"
+        },
+        {
+          "name": "ZEROUTER_BASE_URL",
+          "description": "Override the gateway URL. Default https://api.zerouter.ai",
+          "isRequired": false,
+          "format": "string",
+          "default": "https://api.zerouter.ai"
+        }
+      ]
+    }
+  ]
+}

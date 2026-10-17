@@ -1,0 +1,63 @@
+{
+  "manifest_version": "0.3",
+  "name": "zerouter-mcp",
+  "display_name": "Zerouter",
+  "version": "0.1.0",
+  "description": "AI API gateway MCP for Claude, GPT, Gemini, Grok and Kimi via Zerouter",
+  "long_description": "One API key for Claude, GPT, Gemini, Grok and Kimi. OpenAI-compatible AI API gateway for Claude Code, Codex and Cursor. Look up API pricing, chat, and compare models through Zerouter (https://www.zerouter.ai).",
+  "author": {
+    "name": "Zerouter",
+    "url": "https://www.zerouter.ai"
+  },
+  "homepage": "https://www.zerouter.ai",
+  "documentation": "https://github.com/ZerouterAI/zerouter-mcp#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ZerouterAI/zerouter-mcp"
+  },
+  "license": "MIT",
+  "keywords": [
+    "zerouter",
+    "ai-api",
+    "ai-api-gateway",
+    "api-gateway",
+    "ai-gateway",
+    "openai-compatible",
+    "api-pricing",
+    "claude",
+    "gpt",
+    "gemini",
+    "codex",
+    "grok",
+    "kimi",
+    "openai",
+    "routing"
+  ],
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/dist/index.js"
+      ],
+      "env": {
+        "ZEROUTER_API_KEY": "${user_config.zerouter_api_key}"
+      }
+    }
+  },
+  "user_config": {
+    "zerouter_api_key": {
+      "type": "string",
+      "title": "Zerouter API key",
+      "description": "Key from https://www.zerouter.ai (starts with sk-). Needed for chat and compare_models.",
+      "sensitive": true,
+      "required": false
+    }
+  },
+  "compatibility": {
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  }
+}
