@@ -1,6 +1,7 @@
 # zerouter-mcp
 
-[![npm](https://img.shields.io/npm/v/zerouter-mcp.svg)](https://www.npmjs.com/package/zerouter-mcp)
+[![GitHub release](https://img.shields.io/github/v/release/ZerouterAI/zerouter-mcp)](https://github.com/ZerouterAI/zerouter-mcp/releases)
+[![MCP Registry](https://img.shields.io/badge/MCP%20Registry-io.github.ZerouterAI%2Fzerouter--mcp-blue)](https://registry.modelcontextprotocol.io/v0/servers?search=io.github.ZerouterAI/zerouter-mcp)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 **AI API gateway MCP for Claude, GPT, Gemini, Grok and Kimi via [Zerouter](https://www.zerouter.ai).**
@@ -42,7 +43,9 @@ See the [pricing page](https://www.zerouter.ai/pricing) for current API pricing 
 
 ## Setup
 
-You need Node.js 18 or newer. `npx` downloads and runs the server for you.
+You need Node.js 18 or newer with npm 10 or newer (bundled with current Node 18/20/22 releases). `npx` fetches the server straight from GitHub, builds it once and runs it. The first start takes up to a minute while it installs; later starts use the npx cache.
+
+The package isn't published to npm, so use `github:ZerouterAI/zerouter-mcp` as shown below (not `zerouter-mcp`). Prefer not to use npx? See [Other ways to install](#other-ways-to-install).
 
 ### Claude Desktop
 
@@ -53,7 +56,7 @@ Edit `claude_desktop_config.json`. On macOS it's in `~/Library/Application Suppo
   "mcpServers": {
     "zerouter": {
       "command": "npx",
-      "args": ["-y", "zerouter-mcp"],
+      "args": ["-y", "github:ZerouterAI/zerouter-mcp"],
       "env": {
         "ZEROUTER_API_KEY": "sk-xxxx"
       }
@@ -73,7 +76,7 @@ Add this to `~/.cursor/mcp.json` for all projects, or to `.cursor/mcp.json` in a
   "mcpServers": {
     "zerouter": {
       "command": "npx",
-      "args": ["-y", "zerouter-mcp"],
+      "args": ["-y", "github:ZerouterAI/zerouter-mcp"],
       "env": {
         "ZEROUTER_API_KEY": "sk-xxxx"
       }
@@ -85,10 +88,40 @@ Add this to `~/.cursor/mcp.json` for all projects, or to `.cursor/mcp.json` in a
 ### Claude Code
 
 ```bash
-claude mcp add zerouter --env ZEROUTER_API_KEY=sk-xxxx -- npx -y zerouter-mcp
+claude mcp add zerouter --env ZEROUTER_API_KEY=sk-xxxx -- npx -y github:ZerouterAI/zerouter-mcp
 ```
 
 Add `--scope user` to make it available in every project.
+
+### Other ways to install
+
+**MCPB bundle (Claude Desktop one-click).** Download `zerouter-mcp-0.1.0.mcpb` from the [latest release](https://github.com/ZerouterAI/zerouter-mcp/releases/latest) and open it, or drag it into Claude Desktop under Settings → Extensions. Claude Desktop asks for your API key; no Node.js setup needed.
+
+**Clone and build.** Works with any MCP client that can run a local command:
+
+```bash
+git clone https://github.com/ZerouterAI/zerouter-mcp.git
+cd zerouter-mcp
+npm install        # also builds dist/ via the prepare script
+```
+
+Then point your client at the built file, using the absolute path on your machine:
+
+```json
+{
+  "mcpServers": {
+    "zerouter": {
+      "command": "node",
+      "args": ["/absolute/path/to/zerouter-mcp/dist/index.js"],
+      "env": {
+        "ZEROUTER_API_KEY": "sk-xxxx"
+      }
+    }
+  }
+}
+```
+
+For Claude Code: `claude mcp add zerouter --env ZEROUTER_API_KEY=sk-xxxx -- node /absolute/path/to/zerouter-mcp/dist/index.js`
 
 ### Docker
 
@@ -119,8 +152,7 @@ If no key is set, `get_pricing` and `list_models` still work. `chat` and `compar
 ```bash
 git clone https://github.com/ZerouterAI/zerouter-mcp.git
 cd zerouter-mcp
-npm install
-npm run build
+npm install       # runs the build through the prepare script
 npm test          # spawns the server over stdio and calls every tool (no key needed)
 npx @modelcontextprotocol/inspector node dist/index.js
 ```
